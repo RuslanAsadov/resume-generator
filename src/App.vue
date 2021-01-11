@@ -2,7 +2,10 @@
   <div class="container column">
     
     <resume-form @createContent="createContentHandler"></resume-form>
-    <resume-content :contentItems="contentItems"></resume-content>
+    <resume-content 
+      :contentItems="contentItems"
+      :loading="loadingView"
+    ></resume-content>
 
   </div>
   <div class="container">
@@ -22,7 +25,8 @@
     components: { ResumeForm, ResumeContent, Comments },
     data() {
       return {
-        contentItems: []
+        contentItems: [],
+        loadingView: true
       }
     },
     async created() {
@@ -32,6 +36,8 @@
         this.contentItems = data ? Object.values(data) : []
       } catch (e) {
         console.error(e)
+      } finally {
+        this.loadingView = false
       }
     },
     methods: {

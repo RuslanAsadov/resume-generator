@@ -15,38 +15,38 @@
       <textarea id="value" rows="3" v-model="value"></textarea>
     </div>
 
-    <button class="btn primary" type="submit" :disabled="!validValue">Добавить</button>
+    <button class="btn primary" type="submit" :disabled="!isFormValid">Добавить</button>
   </form>
 </template>
 <script>
 export default {
-  name: 'ResumeForm',
-  emits: ['createContent'],
+  name: "ResumeForm",
+  emits: ["create-content"],
   data() {
     return {
-      type: 'heading',  
-      value: ''
-    }
+      type: "heading",
+      value: "",
+    };
   },
   methods: {
     submitHandler() {
-      if (this.validValue) {
+      if (this.isFormValid) {
         const data = {
           id: Date.now(),
           type: this.type,
           data: this.value,
-        }
-        this.$emit('createContent', data)
+        };
+        this.$emit("create-content", data);
 
-        this.value = ''
-        this.type = 'heading'
+        this.value = "";
+        this.type = "heading";
       }
-    }
+    },
   },
   computed: {
-    validValue() {
-      return this.value.length > 3
-    }
-  }
-}
+    isFormValid() {
+      return this.value.length > 3;
+    },
+  },
+};
 </script>
